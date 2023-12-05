@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Nav } from "react-bootstrap";
 import Sidebar from "./sidebar";
@@ -9,12 +9,19 @@ import CNavbar from "./navbar";
 function Products() {
   const [param] = useSearchParams();
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+  const [product, setProduct] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:8080/category/all/' + param.get('cid'))
       .then(response => setProducts(response.data))
   }, [param]);
 
+ 
+
+  const handleReviewClick = (productId) => {
+    navigate('/customer/review/'+productId);
+  };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -44,10 +51,11 @@ function Products() {
                     <CardSubtitle className="mb-2 text-muted" tag="h6">
                       Colour: {p.colour}
                     </CardSubtitle>
-
                     <CardText>{p.productDescription}</CardText>
                     <Button style={{ marginRight: '8px' }}>Cart</Button>
-                    <Button style={{ marginLeft: '8px' }}>Review</Button>
+                    <Button style={{ marginLeft: '8px' }} onClick={() => handleReviewClick(p.productId)}>
+                      Review
+                    </Button>
                   </CardBody>
                 </Card>
                 <Nav.Link> </Nav.Link>

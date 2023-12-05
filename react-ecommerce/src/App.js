@@ -17,6 +17,7 @@ import Login from "./components/auth/login";
 import Products from "./components/customer/components/products";
 import Cart from "./components/customer/components/cart";
 import CustomerHome from "./components/customer/components/home";
+import Review from "./components/customer/components/Reviews";
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
         <Route path="/customer/products" element={<Products />}></Route>
         <Route path="/customer/cart" element={<Cart />}></Route>
         <Route path="/customer/home" element={<CustomerHome />}></Route>
-
+        <Route path="/customer/review/:pid" element={<Review />}></Route>
         <Route path="/auth/logout" element={<Logout />}></Route>
       </Routes>
     </div>
