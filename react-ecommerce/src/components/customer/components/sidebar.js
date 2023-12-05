@@ -32,7 +32,7 @@ function Sidebar() {
 
   return (
     <div>
-      <Card className="categories-card" style={{ width: "60%", marginTop: "3cm" }}>
+      <Card className="categories-card" style={{ width: "80%", marginTop: "4cm" }}>
         <ListGroup>
           <CardHeader style={{ backgroundColor: "blue", color: "#fff" }}>Categories</CardHeader>
           {categories.map((c, index) => (

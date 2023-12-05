@@ -12,14 +12,10 @@ function CustomerHome(props) {
   const [param] = useSearchParams();
   const [searchDone] = useState('');
 
- 
-
   useEffect(() => {
-    if(param.get('page') === 'search'){
-     
+    if(param.get('page') === 'search'){    
      const props= param.get('qStr')
       if(props!== null){
-
       const searchDone='true'
       axios.get('http://localhost:8080/search/' + props)
         .then(response => setSearchProducts(response.data))
@@ -41,17 +37,18 @@ function CustomerHome(props) {
     }
     navigate('/customer/cart');
   };
+
+
+
+  
   return (
     <div>
       <CNavbar />
     <div>
       <Card  style={{ marginTop: '50px' }}>
       {searchProducts.length !== 0?<div>
-            {/* <hr /> */}
           </div>:''}
         <Row>
-        
-        {/* <CardHeader>Searched Products</CardHeader> */}
           {searchProducts.map((p, index) => (
             <div key={index} className="col-md-4 mb-4">
               
@@ -63,6 +60,8 @@ function CustomerHome(props) {
                   </CardSubtitle>
                   <CardText>{p.productDescription}</CardText>
                   <Button>Add to cart</Button>
+
+                  
                 </CardBody>
               </Card>
             </div>
@@ -75,7 +74,7 @@ function CustomerHome(props) {
         
           {featuredProducts.map((p) => (
             <Col key={p.productId} xs={12} sm={6} md={4} className="mb-4">
-              <Card style={{ width: '100%', height: '100%', marginBottom: '20px' }}>
+              <Card style={{ width: '100%', height: '100%', marginBottom: '10px' }}>
                 <CardBody>
                   <CardTitle tag="h5">{p.name}</CardTitle>
                   <CardSubtitle className="mb-2 text-muted" tag="h6">

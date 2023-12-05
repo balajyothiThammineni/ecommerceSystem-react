@@ -1,17 +1,18 @@
-import React from "react";
-import { Navbar, Container, Nav, Form, FormControl, Button } from "react-bootstrap";
+
+import React, { useState } from "react";
+import { Navbar, Container, Nav, Form, FormControl, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const CNavbar = () => {
+function CNavbar() {
+  const [qStr, setQStr] = useState('');
   const navigate = useNavigate();
+  const func=(str)=>{
+    navigate("/customer/home?page=search&qStr="+str)
+   
 
-  const handleSearch = (query) => {
-    // Handle search functionality, e.g., navigate to a search results page
-    console.log("Search query:", query);
-  };
-
+  }
   return (
-    <Navbar bg="blue" expand="md" fixed="top" className="px-sm-2 shadow py-1">
+    <Navbar bg="primary" expand="md" fixed="top" className="px-sm-2 shadow py-1">
       <Container fluid>
         <Navbar.Brand href="/home" className="brand fw-bold" style={{ color: '#4A55A2', fontFamily: 'poppins', letterSpacing: '2px' }}>
           Customer Dashboard
@@ -21,31 +22,31 @@ const CNavbar = () => {
 
         <Navbar.Collapse id="navbarTogglerDemo02">
           <Nav className="ms-auto" style={{ fontFamily: 'poppins' }}>
-
             <Navbar.Brand onClick={() => navigate('/home')}>Home </Navbar.Brand>
             <Navbar.Brand onClick={() => navigate('/auth/Signup')}>Signup </Navbar.Brand>
             <Navbar.Brand onClick={() => navigate('/customer/cart')}>Cart</Navbar.Brand>
-            <Navbar.Brand onClick={() => navigate('/customer/previous_orders')}>Previous Orders</Navbar.Brand>
-            <Form className="d-flex ms-2">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="mr-2"
-                aria-label="Search"
-                onChange={(e) => handleSearch(e.target.value)}
-              />
-              <Button variant="outline-light" onClick={() => handleSearch("search query")}>
-                Search
-              </Button>
-              <Navbar.Brand onClick={() => navigate('/auth/logout')}>Logout</Navbar.Brand>
-
-            </Form>
           </Nav>
+          <Navbar.Collapse className="justify-content-end">
+            <Form onSubmit={(e)=>{
+              e.preventDefault();
+              func(qStr);
+            }}>
+              <Row>
+                <Col xs="auto">
+                  <Form.Control
+                    type="text"
+                    placeholder="Search"
+                    className=" mr-sm-2"
+                    onChange={(e) => setQStr(e.target.value)}
+                  />
+                </Col>
+              </Row>
+            </Form>
+          </Navbar.Collapse>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
-};
+}
 
-// Exporting the NavbarComponent for use in other parts of the application
-export default CNavbar;
+export default CNavbar;

@@ -38,8 +38,16 @@ function Products() {
                     <CardSubtitle className="mb-2 text-muted" tag="h6">
                       Price: RS. {p.price}
                     </CardSubtitle>
+                    <CardSubtitle className="mb-2 text-muted" tag="h6">
+                      Size: {p.size}
+                    </CardSubtitle>
+                    <CardSubtitle className="mb-2 text-muted" tag="h6">
+                      Colour: {p.colour}
+                    </CardSubtitle>
+
                     <CardText>{p.productDescription}</CardText>
-                    <Button >Reviews</Button>
+                    <Button style={{ marginRight: '8px' }}>Cart</Button>
+                    <Button style={{ marginLeft: '8px' }}>Review</Button>
                   </CardBody>
                 </Card>
                 <Nav.Link> </Nav.Link>
