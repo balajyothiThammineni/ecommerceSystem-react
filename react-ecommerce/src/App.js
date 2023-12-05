@@ -14,9 +14,10 @@ import Addcategory from "./components/executive/components/addcategory";
 import Sellerview from "./components/executive/components/sellerview";
 import CustomerView from "./components/executive/components/customervview";
 import Login from "./components/auth/login"; 
-import CustomerHome from "./components/customer/components/home";
 import Products from "./components/customer/components/products";
 import Cart from "./components/customer/components/cart";
+import CustomerHome from "./components/customer/components/home";
+
 function App() {
   return (
     <div>
@@ -36,6 +37,7 @@ function App() {
         <Route path="/auth/login" element={<Login />}></Route>
         <Route path="/customer/products" element={<Products />}></Route>
         <Route path="/customer/cart" element={<Cart />}></Route>
+        <Route path="/customer/home" element={<CustomerHome />}></Route>
 
         <Route path="/auth/logout" element={<Logout />}></Route>
       </Routes>

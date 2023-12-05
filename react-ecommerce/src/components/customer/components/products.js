@@ -39,7 +39,7 @@ function Products() {
                       Price: RS. {p.price}
                     </CardSubtitle>
                     <CardText>{p.productDescription}</CardText>
-                    <Button>Cart</Button>
+                    <Button >Reviews</Button>
                   </CardBody>
                 </Card>
                 <Nav.Link> </Nav.Link>
