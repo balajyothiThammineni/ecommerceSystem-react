@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, CardHeader, ListGroup, ListGroupItem, Nav } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import Products from "./products";
+import { useSearchParams } from "react-router-dom";
+import Home from "../../home";
 
 function Sidebar() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [msg, setMsg] = useState('');
+  const [param] = useSearchParams();
+
 
   useEffect(() => {
     axios.get('http://localhost:8080/category/getall')
@@ -17,6 +22,13 @@ function Sidebar() {
       })
       .catch(error => setMsg('Error in Fetching categories'));
   }, []);
+  
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategory(categoryId);
+    navigate('/customer/dashboard?page=products&cid='+categoryId);
+  
+    
+   };
 
   return (
     <div>
@@ -31,12 +43,11 @@ function Sidebar() {
                 backgroundColor: selectedCategory === c.categoryId ? "#007bff" : "",
                 cursor: "pointer",
               }}
-              onClick={() => {
-                setSelectedCategory(c.categoryId);
+              onClick={() => handleCategoryClick(c.categoryId)}>
                 
-              }}>
-              <Nav.Link>{c.name} {c.categoryName}</Nav.Link>
-              <Nav.Link onClick={()=>navigate('/customer/dashboard?page=products&cid='+c.id)}> {c.name}</Nav.Link>
+                {/* <Nav.Link onClick={()=>navigate('/customer/products&cid='+c.categoryId)}> */}
+                {c.categoryName}
+                {/* </Nav.Link> */}
 
             </ListGroupItem>
           ))}
