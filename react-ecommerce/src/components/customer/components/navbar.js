@@ -14,7 +14,7 @@ function CNavbar() {
   return (
     <Navbar bg="primary" expand="md" fixed="top" className="px-sm-2 shadow py-1">
       <Container fluid>
-        <Navbar.Brand href="/home" className="brand fw-bold" style={{ color: '#4A55A2', fontFamily: 'poppins', letterSpacing: '2px' }}>
+        <Navbar.Brand href="/home" className="brand fw-bold" style={{ color: 'Black', fontFamily: 'poppins', letterSpacing: '2px' }}>
           Customer Dashboard
         </Navbar.Brand>
 

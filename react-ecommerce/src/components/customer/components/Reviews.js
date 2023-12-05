@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import CNavbar from "./navbar";
 
 function Review() {
   const { pid } = useParams();
@@ -24,19 +25,50 @@ function Review() {
   }, [pid]);
 
   return (
-    <div>
-      <h3>Review for Product {pid}</h3>
+    <div style={styles.container}>
+      <h3 style={styles.heading}>Review for Product {pid}</h3>
       {isDataLoaded && reviewData.length > 0 ? (
-        <div>
-          <p>Rating: {reviewData[0].rating}</p>
-          <p>Review Description: {reviewData[0].reviewDescription}</p>
-          <p>Date: {reviewData[0].date}</p>
+        <div style={styles.reviewContainer}>
+          <p style={styles.detail}>Rating: {reviewData[0].rating}</p>
+          <p style={styles.detail}>Review Description: {reviewData[0].reviewDescription}</p>
+          <p style={styles.detail}>Date: {reviewData[0].date}</p>
         </div>
       ) : (
-        <p>Loading review data...</p>
+        <p style={styles.loading}>Loading review data...</p>
       )}
+      <CNavbar />
     </div>
   );
 }
+
+const styles = {
+  container: {
+    maxWidth: "600px",
+    margin: "auto",
+    padding: "20px",
+    backgroundColor: "#f8f8f8",
+    borderRadius: "8px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+  },
+  heading: {
+    fontSize: "24px",
+    color: "#333",
+    marginBottom: "20px",
+  },
+  reviewContainer: {
+    padding: "10px",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    backgroundColor: "#fff",
+  },
+  detail: {
+    fontSize: "16px",
+    marginBottom: "10px",
+  },
+  loading: {
+    fontSize: "16px",
+    color: "#888",
+  },
+};
 
 export default Review;
