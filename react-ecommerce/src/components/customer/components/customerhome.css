@@ -1,0 +1,63 @@
+/* CustomerHome.css */
+
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Add a scaling effect on hover */
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-subtitle {
+    font-size: 1rem;
+    color: #878787;
+  }
+  
+  .card-text {
+    margin-bottom: 1rem;
+  }
+  
+  .btn {
+    background-color: #2874f0;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .btn:hover {
+    background-color: #1750a3;
+  }
+  
+  .card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  /* Add skew transformation for the featured product container */
+  .featured-products-container {
+    transform: skewY(-5deg);
+    margin-top: -50px; /* Adjust the margin to align the slanted cards with the non-slanted ones */
+  }
+  
+  /* Add skew transformation for each featured product card */
+  .featured-product-card {
+    transform: skewY(5deg);
+  }
+  

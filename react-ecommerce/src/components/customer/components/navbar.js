@@ -25,6 +25,8 @@ function CNavbar() {
             <Navbar.Brand onClick={() => navigate('/home')}>Home </Navbar.Brand>
             <Navbar.Brand onClick={() => navigate('/auth/Signup')}>Signup </Navbar.Brand>
             <Navbar.Brand onClick={() => navigate('/customer/cart')}>Cart</Navbar.Brand>
+            <Navbar.Brand onClick={() => navigate('/customer/previousOrders')}>History</Navbar.Brand>
+
           </Nav>
           <Navbar.Collapse className="justify-content-end">
             <Form onSubmit={(e)=>{

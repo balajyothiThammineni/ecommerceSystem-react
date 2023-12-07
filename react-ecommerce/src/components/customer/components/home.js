@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import CNavbar from "./navbar";
 
+
 function CustomerHome(props) {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [searchProducts, setSearchProducts] = useState([]);
@@ -69,24 +70,26 @@ function CustomerHome(props) {
         </Row>
       </Card>
       <Card  style={{ marginTop: '120px' }}>
-        <CardHeader>Featured</CardHeader>
-        <Row>
         
-          {featuredProducts.map((p) => (
-            <Col key={p.productId} xs={12} sm={6} md={4} className="mb-4">
-              <Card style={{ width: '100%', height: '100%', marginBottom: '10px' }}>
-                <CardBody>
-                  <CardTitle tag="h5">{p.name}</CardTitle>
-                  <CardSubtitle className="mb-2 text-muted" tag="h6">
-                    Price: Rs. {p.price}
-                  </CardSubtitle>
-                  <CardText>{p.productDescription}</CardText>
-                  <Button onClick={() => { handleAddProducts(p) }}>Add to cart</Button>
-                </CardBody>
-              </Card>
-            </Col>
-          
-          ))}
+        <Row>
+        {featuredProducts.map((p) => (
+  <Col key={p.productId} xs={12} sm={6} md={4} className="mb-4">
+    <Card style={{ width: '100%', height: '100%', marginBottom: '10px' }}>
+      <CardBody>
+        <CardTitle tag="h5">{p.name}</CardTitle>
+        <CardSubtitle className="mb-2 text-muted" tag="h6">
+          Price: Rs. {p.price}
+        </CardSubtitle>
+        <CardText> colour:{p.colour}</CardText>
+        <CardText> screen  :{p.size}</CardText>
+
+
+        <CardText>{p.productDescription}</CardText>
+        {/* <Button onClick={() => { handleAddProducts(p) }}>Add to cart</Button> */}
+      </CardBody>
+    </Card>
+  </Col>
+))}
         </Row>
       </Card>
 

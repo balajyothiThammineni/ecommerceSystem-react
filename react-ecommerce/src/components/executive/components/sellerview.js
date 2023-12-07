@@ -17,7 +17,6 @@ function Sellerview() {
 
 
   const handleDeleteClick = (sellerId) => {
-    // Implement of logic for the "Delete" button click
     console.log(`Delete button clicked for seller with ID: ${sellerId}`);
   };
 

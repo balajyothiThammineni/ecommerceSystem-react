@@ -15,7 +15,7 @@ function Review() {
         const response = await axios.get(`http://localhost:8080/review/product/${pid}`);
         console.log("API Response:", response.data);
         setReviewData(response.data);
-        setIsDataLoaded(true); // Set the flag to trigger re-render
+        setIsDataLoaded(true); 
       } catch (error) {
         console.error("Error fetching review data:", error);
       }
@@ -26,13 +26,17 @@ function Review() {
 
   return (
     <div style={styles.container}>
-      <h3 style={styles.heading}>Review for Product {pid}</h3>
+      <h3 style={styles.heading}>Reviews for Product {pid}</h3>
       {isDataLoaded && reviewData.length > 0 ? (
-        <div style={styles.reviewContainer}>
-          <p style={styles.detail}>Rating: {reviewData[0].rating}</p>
-          <p style={styles.detail}>Review Description: {reviewData[0].reviewDescription}</p>
-          <p style={styles.detail}>Date: {reviewData[0].date}</p>
-        </div>
+        reviewData.map((review, index) => (
+          <div key={index} style={styles.reviewContainer}>
+            <p style={styles.detail}>Rating: {review.rating}</p>
+            <p style={styles.detail}>Review Description: {review.reviewDescription}</p>
+            <p style={styles.detail}>Date: {review.date}</p>
+          </div>
+        ))
+      ) : isDataLoaded ? (
+        <p style={styles.loading}>No reviews available for this product.</p>
       ) : (
         <p style={styles.loading}>Loading review data...</p>
       )}
@@ -60,6 +64,7 @@ const styles = {
     border: "1px solid #ccc",
     borderRadius: "8px",
     backgroundColor: "#fff",
+    marginBottom: "10px",
   },
   detail: {
     fontSize: "16px",
