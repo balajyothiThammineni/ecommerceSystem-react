@@ -38,7 +38,6 @@ function Clogin() {
             navigate('/executive/Home'); // Corrected path
             break;
           default:
-            // Handle unexpected roles if necessary
         }
       })
       .catch(function (error) {

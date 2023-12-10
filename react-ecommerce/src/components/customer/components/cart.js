@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+import CNavbar from "./navbar";
 
 function Cart() {
   const [cart, setCart] = useState([]);
@@ -10,6 +11,38 @@ function Cart() {
       
     }
   }, []);
+
+  const placeOrder = (data) => {
+    debugger
+    let orderData=[]
+    let id=localStorage.getItems('id')
+    data.map((ele,index)=>{
+      debugger
+      let orderProduct={
+        quantity:quantities[index],
+        pid:ele.productId,
+        cid:id
+      }
+      orderData.push(orderProduct)
+      
+    })
+    console.log("data after submit", data);
+
+    fetch("https:8080/orders/saveall", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("Success", responseData);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
   
   const [quantities, setQuantities] = useState([]);
 
@@ -33,13 +66,13 @@ function Cart() {
   const getTotalAmount = (item) => {
     const index = cart.indexOf(item);
     const quantity = quantities[index];
-    return item.unitPrice * quantity;
+    return item.price * quantity;
   }
 
   const getTotalPrice = () => {
     let total = 0;
     cart.forEach((item, index) => {
-      total += item.unitPrice * quantities[index];
+      total += item.price * quantities[index];
     });
     return total;
   }
@@ -48,7 +81,6 @@ function Cart() {
     <div class="mt-5 pt-5">
         <div class="row">
             <div class="col-md-3">
-                <a href="/Books" class="btn btn-success">Continue Shopping</a>
             </div>
         </div>
 
@@ -56,7 +88,7 @@ function Cart() {
       <table class="table table-striped table-light mt-5">
         <thead>
              <tr>
-              <th>Garment Name</th>
+              <th>Product Name</th>
               <th>Price</th>
               <th>Quantity</th>
               <th>Total Amount</th>
@@ -68,7 +100,7 @@ function Cart() {
          
           <tr>
                 <td>{item.name}</td>
-                <td>Rs.{item.unitPrice}</td>
+                <td>Rs.{item.price}</td>
                 <td>
                 <input type="number" value={quantities[index]} min="1" max="5" onChange={(e) => updateQuantity(index, e.target.value)} />
                 </td>
@@ -84,11 +116,14 @@ function Cart() {
             </td>
           
           <td colspan="5">
-            <a href="/Cartcheckout" class="btn text-decoration-none mb-3 btn-danger fw-bold">checkout</a>
+            <a href ="/" onClick={()=>{
+              placeOrder(cart)
+            }}class ="btn text-decoration-none mb-3 btn-success fw-bold">order</a>
             </td>
             
             </tr></tfoot>
         </table>
+        <CNavbar />
       </div>
     
   );

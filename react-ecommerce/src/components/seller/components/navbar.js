@@ -1,25 +1,32 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function SNavbar() {
   const navigate = useNavigate();
 
   return (
-    <nav className="navbar navbar-light" style={{ backgroundColor: '#e3f2fd' }}>
-      <Navbar.Brand href="/home" className="brand fw-bold" style={{ color: '#4A55A2', fontFamily: 'poppins', letterSpacing: '2px',  marginLeft: '1cm'}}>
-           Seller Dashboard
+    <Navbar expand="lg" variant="light" bg="primary" style={{ backgroundColor: 'skyblue', borderBottom: '1px solid #4A55A2', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+      <Navbar.Brand href="/home" className="brand fw-bold" style={{ color: 'white', fontFamily: 'Poppins', letterSpacing: '2px' }}>
+        Seller Dashboard
       </Navbar.Brand>
 
-      <div className="ms-auto d-flex gap-2">
-        <Navbar.Brand onClick={() => navigate('/home')}>Home </Navbar.Brand>
-        <Navbar.Brand onClick={() => navigate('/Register')}>Register </Navbar.Brand>
-        <Navbar.Brand onClick={() => navigate('/Login')}>Login </Navbar.Brand>
-        <Navbar.Brand onClick={() => navigate('/MyProducts')}>MyProducts </Navbar.Brand>
-        <Navbar.Brand onClick={() => navigate('/Update Details')}>Update Details </Navbar.Brand>
+      <Navbar.Toggle aria-controls="navbar-nav" />
 
-      </div>
-    </nav>
+      <Navbar.Collapse id="navbar-nav" className="justify-content-end">
+        <Nav className="ms-auto">
+          <Nav.Link onClick={() => navigate('/home')} style={{ color: 'black' }}>Home</Nav.Link>
+          <Nav.Link onClick={() => navigate('/auth/register')} style={{ color: 'black' }}>Register</Nav.Link>
+          <Nav.Link onClick={() => navigate('/auth/login')} style={{ color: 'black' }}>Login</Nav.Link>
+          <Nav.Link onClick={() => navigate('/seller/myproducts')} style={{ color: 'black' }}>MyProducts</Nav.Link>
+          <Nav.Link onClick={() => navigate('/seller/updatedetails')} style={{ color: 'black' }}>UpdateDetails</Nav.Link>
+          <Nav.Link onClick={() => navigate('/seller/allproducts')} style={{ color: 'black' }}>Allproducts</Nav.Link>
+
+          <Nav.Link onClick={() => navigate('/auth/logout')} style={{ color: 'black' }}>Logout</Nav.Link>
+
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
 

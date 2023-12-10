@@ -5,7 +5,7 @@ import CustomerDashboard from "./components/customer/dashboard";
 import ExecutiveDashboard from "./components/executive/dashboard";
 import Home from "./components/home";
 import Navbar from "./components/navbar";
-import Clogin from "./components/auth/clogin";  // Rename the import here
+import Clogin from "./components/auth/clogin";  
 import Signup from "./components/auth/signup";
 import Logout from "./components/auth/logout";
 import SellerHome from "./components/seller/components/home";
@@ -18,6 +18,13 @@ import Products from "./components/customer/components/products";
 import Cart from "./components/customer/components/cart";
 import CustomerHome from "./components/customer/components/home";
 import Review from "./components/customer/components/Reviews";
+import Register from "./components/auth/register";
+import MyProducts from "./components/seller/components/myproducts";
+import UpdateDetails from "./components/seller/components/updatedetails";
+import History from "./components/customer/components/history";
+import Allproducts from "./components/seller/components/allproducts";
+import Order from "./components/customer/components/order";
+import Contact from "./components/customer/components/contact";
 
 function App() {
   return (
@@ -41,6 +48,15 @@ function App() {
         <Route path="/customer/home" element={<CustomerHome />}></Route>
         <Route path="/customer/review/:pid" element={<Review />}></Route>
         <Route path="/auth/logout" element={<Logout />}></Route>
+        <Route path="/auth/register" element={<Register />}></Route>
+        <Route path="/seller/myproducts" element={<MyProducts />}></Route>
+        <Route path="/seller/updatedetails" element={<UpdateDetails/>}></Route>
+        <Route path="/customer/history" element={<History />}></Route>
+        <Route path="/seller/allproducts" element={<Allproducts />}></Route>
+        <Route path="/customer/order" element={<Order />}></Route>
+        <Route path="/customer/contact" element={<Contact />}></Route>
+
+
       </Routes>
     </div>
   );

@@ -6,6 +6,7 @@ import Products from "./products";
 import { useSearchParams } from "react-router-dom";
 import Home from "../../home";
 
+
 function Sidebar() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
@@ -45,7 +46,6 @@ function Sidebar() {
               }}
               onClick={() => handleCategoryClick(c.categoryId)}>
                 
-                {/* <Nav.Link onClick={()=>navigate('/customer/products&cid='+c.categoryId)}> */}
                 {c.categoryName}
                 {/* </Nav.Link> */}
 

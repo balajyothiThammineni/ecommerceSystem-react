@@ -10,6 +10,19 @@ function AddCategory() {
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleAddCategory = () => {
+    // Check if category with the same name exists
+    if (categories.some(cat => cat.categoryName === categoryName)) {
+      setSuccessMessage(`Category "${categoryName}" already exists.`);
+      return;
+    }
+
+    // Check if category with the same priority exists
+    if (categories.some(cat => cat.priority === parseInt(priority))) {
+      setSuccessMessage(`Category with priority "${priority}" already exists.`);
+      return;
+    }
+
+    // If no duplicate, proceed with adding the category
     axios
       .post('http://localhost:8080/category/add', {
         categoryName: categoryName,

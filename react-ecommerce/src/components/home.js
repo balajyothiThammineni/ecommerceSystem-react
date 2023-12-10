@@ -3,7 +3,7 @@ import Navbar from "./navbar";
 
 function Home() {
 
-  const backgroundImageUrl = "https://wallpaperaccess.com/full/2593108.png";
+  const backgroundImageUrl = "https://wallpapercave.com/dwp1x/wp3537541.jpg";
 
   return (
     <div
@@ -11,18 +11,12 @@ function Home() {
         backgroundImage: "url(" + backgroundImageUrl + ")",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: "90vh",
+        height: "100vh",
       }}
     >
       <Navbar />
 
-      <div style={{ marginTop: "40px" }}>
-        <img
-          src="https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif"
-          height="200"
-          width="300"
-        />
-      </div>
+      
 
      
     </div>

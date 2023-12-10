@@ -1,46 +1,129 @@
-
 import React, { useState } from "react";
-import { Navbar, Container, Nav, Form, FormControl, Button, Row, Col } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+  Row,
+  Col,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function CNavbar() {
-  const [qStr, setQStr] = useState('');
+  const [qStr, setQStr] = useState("");
   const navigate = useNavigate();
-  const func=(str)=>{
-    navigate("/customer/home?page=search&qStr="+str)
-   
 
-  }
+  const func = (str) => {
+    navigate("/customer/home?page=search&qStr=" + str);
+  };
+
+  const navBrandStyle = {
+    fontFamily: "Poppins",
+    letterSpacing: "2px",
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    color: "#fff", // Adjust the font color
+  };
+
+  const navLinkStyle = {
+    color: "#fff", // Adjust the font color
+    fontSize: "1rem",
+    fontWeight: "bold",
+    marginRight: "20px", // Adjust the right margin between links
+    textDecoration: "none", // Remove default underline
+    cursor: "pointer",
+    transition: "color 0.3s ease", // Smooth color transition on hover
+  };
+
+  const searchFormStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
+
+  const searchInputStyle = {
+    marginRight: "10px", // Adjust the right margin of the search input
+  };
+
   return (
-    <Navbar bg="primary" expand="md" fixed="top" className="px-sm-2 shadow py-1">
+    <Navbar
+      bg="primary"
+      variant="dark"
+      expand="md"
+      fixed="top"
+      className="px-sm-2 shadow py-2"
+    >
       <Container fluid>
-        <Navbar.Brand href="/home" className="brand fw-bold" style={{ color: 'Black', fontFamily: 'poppins', letterSpacing: '2px' }}>
+        <Navbar.Brand
+          href="/home"
+          className="brand fw-bold"
+          style={navBrandStyle}
+        >
           Customer Dashboard
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbarTogglerDemo02" />
 
         <Navbar.Collapse id="navbarTogglerDemo02">
-          <Nav className="ms-auto" style={{ fontFamily: 'poppins' }}>
-            <Navbar.Brand onClick={() => navigate('/home')}>Home </Navbar.Brand>
-            <Navbar.Brand onClick={() => navigate('/auth/Signup')}>Signup </Navbar.Brand>
-            <Navbar.Brand onClick={() => navigate('/customer/cart')}>Cart</Navbar.Brand>
-            <Navbar.Brand onClick={() => navigate('/customer/previousOrders')}>History</Navbar.Brand>
+          <Nav className="ms-auto" style={{ fontFamily: "Poppins" }}>
+            <Nav.Link onClick={() => navigate("/home")} style={navLinkStyle}>
+              Home
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => navigate("/customer/contact")}
+              style={navLinkStyle}
+            >
+              Contact
+            </Nav.Link>
 
+            <Nav.Link
+              onClick={() => navigate("/auth/Signup")}
+              style={navLinkStyle}
+            >
+              Signup
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => navigate("/customer/cart")}
+              style={navLinkStyle}
+            >
+              Cart
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => navigate("/customer/history")}
+              style={navLinkStyle}
+            >
+              History
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => navigate("/auth/logout")}
+              style={navLinkStyle}
+            >
+              Logout
+            </Nav.Link>
           </Nav>
+
           <Navbar.Collapse className="justify-content-end">
-            <Form onSubmit={(e)=>{
-              e.preventDefault();
-              func(qStr);
-            }}>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                func(qStr);
+              }}
+              style={searchFormStyle}
+            >
               <Row>
-                <Col xs="auto">
+                <Col xs="auto" style={searchInputStyle}>
                   <Form.Control
                     type="text"
                     placeholder="Search"
-                    className=" mr-sm-2"
+                    className="mr-sm-2"
                     onChange={(e) => setQStr(e.target.value)}
                   />
+                </Col>
+                <Col xs="auto">
+                  <Button type="submit" variant="outline-light">
+                    Search
+                  </Button>
                 </Col>
               </Row>
             </Form>
