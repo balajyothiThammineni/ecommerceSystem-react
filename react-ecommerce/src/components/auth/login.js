@@ -21,6 +21,7 @@ function Login() {
         localStorage.setItem('username', username);
         localStorage.setItem('token', token);
         localStorage.setItem('id', response.data.id);
+        localStorage.setItem('sid', response.data.sellerId);  // Store seller ID in local storage
         localStorage.setItem('isLoggedIn', true);
         let role = response.data.role;
         switch (role) {
@@ -37,7 +38,6 @@ function Login() {
         }
       })
       .catch(function (error) {
-        // Handle login failure
         if (error.response && error.response.status === 401) {
           setMsg('Invalid credentials. Please try again.');
         } else {

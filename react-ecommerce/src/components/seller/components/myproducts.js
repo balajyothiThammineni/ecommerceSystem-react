@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+import { Table, Button, Row, Col, Card } from "react-bootstrap";
 import SNavbar from "./navbar";
 
 function MyProducts({ sid }) {
+  const [param] = useSearchParams();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/product/seller/${sid}`)
-      .then(response => {
+    fetchData();
+  }, [sid]);
+
+  const fetchData = () => {
+    axios
+      .get(`http://localhost:8080/product/seller/${6}`)
+      .then((response) => {
         setProducts(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, [sid]);
+  };
 
   const handleAddProduct = () => {
     console.log("Add product functionality");
@@ -21,38 +29,65 @@ function MyProducts({ sid }) {
 
   const handleDeleteProduct = (productId) => {
     console.log("Delete product functionality for productId:", productId);
+
+    // Send a DELETE request to your backend API
+    axios
+      .delete(`http://localhost:8080/product/delete/${productId}`)
+      .then((response) => {
+        console.log("Delete response:", response);
+        console.log('Product deleted successfully');
+        // Update the state to reflect the deleted product
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product.productId !== productId)
+        );
+      })
+      .catch((error) => console.error('Error deleting product:', error));
   };
 
   return (
     <div>
       <SNavbar />
-
-      <div>
-        <h2>My Products</h2>
-
-        <button onClick={handleAddProduct}>Add Product</button>
-
-        {products.length === 0 ? (
-          <p>No products available</p>
-        ) : (
-          <ul>
-            {products.map(product => (
-              <li key={product.productId}>
-                <h3>{product.name}</h3>
-                <p>Description: {product.productDescription}</p>
-                <p>Color: {product.colour}</p>
-                <p>Size: {product.size}</p>
-                <p>Price: {product.price}</p>
-                <p>Stock: {product.stock}</p>
-                <p>Featured: {product.featured ? "True" : "False"}</p>
-                <button onClick={() => handleDeleteProduct(product.productId)}>
-                  Delete Product
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <Row>
+        <Col md={8} className="mx-auto">
+          <Card className="my-4 p-3">
+            <h2 className="mb-4">My Products</h2>
+            <Table striped bordered hover responsive>
+              <thead>
+                <tr>
+                  <th>Sno</th>
+                  <th>Name</th>
+                  <th>productDescription</th>
+                  <th>colour</th>
+                  <th>size</th>
+                  <th>stock</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product, index) => (
+                  <tr key={index + 1}>
+                    <td>{index + 1}</td>
+                    <td>{product.name}</td>
+                    <td>{product.productDescription}</td>
+                    <td>{product.colour}</td>
+                    <td>{product.size}</td>
+                    <td>{product.stock}</td>
+                    <td>
+                      <Button
+                        variant="danger"
+                        onClick={() => handleDeleteProduct(product.productId)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Button onClick={handleAddProduct}>Add Product</Button>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 }

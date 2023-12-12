@@ -17,7 +17,7 @@ function UpdateDetails({ sellerId }) {
   useEffect(() => {
     // Fetch the seller details from the server using the sellerId
     axios
-      .get(`http://localhost:8080/seller/update/${sellerId}`)
+      .put(`http://localhost:8080/seller/update/${sellerId}`)
       .then((response) => {
         setSellerDetails(response.data);
       })

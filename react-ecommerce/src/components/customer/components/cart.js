@@ -46,8 +46,6 @@ function Cart() {
   };
 
   const placeOrder = () => {
-    // Logic to place the order goes here
-    // For example, you can navigate to the "/customer/order" route
     navigate("/customer/order");
   };
 

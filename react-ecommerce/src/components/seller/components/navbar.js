@@ -20,7 +20,6 @@ function SNavbar() {
           <Nav.Link onClick={() => navigate('/auth/login')} style={{ color: 'black' }}>Login</Nav.Link>
           <Nav.Link onClick={() => navigate('/seller/myproducts')} style={{ color: 'black' }}>MyProducts</Nav.Link>
           <Nav.Link onClick={() => navigate('/seller/updatedetails')} style={{ color: 'black' }}>UpdateDetails</Nav.Link>
-          <Nav.Link onClick={() => navigate('/seller/allproducts')} style={{ color: 'black' }}>Allproducts</Nav.Link>
 
           <Nav.Link onClick={() => navigate('/auth/logout')} style={{ color: 'black' }}>Logout</Nav.Link>
 

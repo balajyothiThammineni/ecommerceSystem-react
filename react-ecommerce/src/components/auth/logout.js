@@ -8,7 +8,8 @@ function Logout() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleLogout = () => {
-
+    // Clear local storage ID
+    localStorage.removeItem('id');
     setShowLogoutModal(true);
   };
 
@@ -25,7 +26,6 @@ function Logout() {
           Logout
         </Button>
 
-        {/* Logout Confirmation Modal */}
         <Modal show={showLogoutModal} onHide={handleCloseLogoutModal} centered>
           <Modal.Header closeButton>
             <Modal.Title>Logout Successful</Modal.Title>

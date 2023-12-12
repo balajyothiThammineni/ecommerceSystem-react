@@ -32,7 +32,7 @@ function Products() {
   };
 
   const handleAddToCartClick = async (p) => {
-    debugger 
+  
     if (!parseInt(isLoggedIn)) {
       navigate("/auth/signup");
       return;

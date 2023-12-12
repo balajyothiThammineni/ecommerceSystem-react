@@ -10,7 +10,6 @@ function Contact()
       height: '85vh',
       width: '100%',
       overflow: 'hidden',
-      background: 'url("images/two.jpg")',
       backgroundSize: 'cover',
       display: 'flex',
       justifyContent: 'left',

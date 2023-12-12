@@ -5,6 +5,7 @@ import axios from "axios";
 import SNavbar from "../seller/components/navbar";
 
 function Register() {
+
   const [sellerName, setSellerName] = useState("");
   const [sellerEmail, setSellerEmail] = useState("");
   const [password, setPassword] = useState("");

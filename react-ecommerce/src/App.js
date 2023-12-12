@@ -21,7 +21,6 @@ import Review from "./components/customer/components/Reviews";
 import Register from "./components/auth/register";
 import MyProducts from "./components/seller/components/myproducts";
 import UpdateDetails from "./components/seller/components/updatedetails";
-import Allproducts from "./components/seller/components/allproducts";
 import Order from "./components/customer/components/order";
 import Contact from "./components/customer/components/contact";
 
@@ -50,7 +49,6 @@ function App() {
         <Route path="/auth/register" element={<Register />}></Route>
         <Route path="/seller/myproducts" element={<MyProducts />}></Route>
         <Route path="/seller/updatedetails" element={<UpdateDetails/>}></Route>
-        <Route path="/seller/allproducts" element={<Allproducts />}></Route>
         <Route path="/customer/order" element={<Order />}></Route>
         <Route path="/customer/contact" element={<Contact />}></Route>
 
