@@ -24,17 +24,17 @@ function CNavbar() {
     letterSpacing: "2px",
     fontSize: "1.5rem",
     fontWeight: "bold",
-    color: "#fff", // Adjust the font color
+    color: "#fff", 
   };
 
   const navLinkStyle = {
-    color: "#fff", // Adjust the font color
+    color: "#fff", 
     fontSize: "1rem",
     fontWeight: "bold",
-    marginRight: "20px", // Adjust the right margin between links
-    textDecoration: "none", // Remove default underline
+    marginRight: "20px", 
+    textDecoration: "none", 
     cursor: "pointer",
-    transition: "color 0.3s ease", // Smooth color transition on hover
+    transition: "color 0.3s ease", 
   };
 
   const searchFormStyle = {
@@ -43,7 +43,7 @@ function CNavbar() {
   };
 
   const searchInputStyle = {
-    marginRight: "10px", // Adjust the right margin of the search input
+    marginRight: "10px", 
   };
 
   return (
@@ -90,17 +90,13 @@ function CNavbar() {
               Cart
             </Nav.Link>
             <Nav.Link
-              onClick={() => navigate("/customer/history")}
-              style={navLinkStyle}
-            >
-              History
-            </Nav.Link>
-            <Nav.Link
               onClick={() => navigate("/auth/logout")}
               style={navLinkStyle}
             >
               Logout
             </Nav.Link>
+
+            
           </Nav>
 
           <Navbar.Collapse className="justify-content-end">

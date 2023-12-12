@@ -26,6 +26,20 @@ function SignUp() {
       return;
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(customerEmail)) {
+      setMsg("Invalid email address");
+      return;
+    }
+
+    // Validate password format (at least one uppercase, one lowercase, one digit, and minimum length)
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setMsg("Password must contain at least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long");
+      return;
+    }
+
     // Other validations can be added here
 
     let customerObj = {
@@ -45,8 +59,6 @@ function SignUp() {
       },
     };
 
-    console.log(JSON.stringify(customerObj));
-
     axios
       .post("http://localhost:8080/customer/signup", customerObj)
       .then((response) => {
@@ -57,7 +69,6 @@ function SignUp() {
         setMsg("Issue in processing signup..");
       });
   };
-
   return (
     <div>
       <CNavbar />
