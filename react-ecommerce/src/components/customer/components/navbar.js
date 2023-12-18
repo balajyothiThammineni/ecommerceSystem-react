@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Navbar,
   Container,
@@ -10,17 +10,47 @@ import {
   Col,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function CNavbar() {
   const [qStr, setQStr] = useState("");
+  const [customerId, setCustomerId] = useState('')
   const navigate = useNavigate();
+  const userId = localStorage.getItem('id');
+
+  useEffect(() => {
+    // Fetch orders for the specified customer ID
+    const fetchOrders = async () => {
+      try {
+
+        axios
+        .get(`http://localhost:8080/customer/getByUserId/${userId}`)
+        .then(async (resp) => {
+          setCustomerId(resp.data.customerId);
+          
+        })
+        .catch((error) => {
+          console.error("Error fetching customer:", error);
+        });
+
+
+        
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+
+    fetchOrders();
+  }, [userId]);
+
 
   const func = (str) => {
     navigate("/customer/home?page=search&qStr=" + str);
   };
 
   const navBrandStyle = {
-    fontFamily: "Poppins",
+    // fontFamily: "Poppins",
+    fontFamily: 'sans-serif',
     letterSpacing: "2px",
     fontSize: "1.5rem",
     fontWeight: "bold",
@@ -28,9 +58,10 @@ function CNavbar() {
   };
 
   const navLinkStyle = {
+    fontFamily: 'sans-serif',
     color: "#fff", 
     fontSize: "1rem",
-    fontWeight: "bold",
+    // fontWeight: "bold",
     marginRight: "20px", 
     textDecoration: "none", 
     cursor: "pointer",
@@ -56,7 +87,7 @@ function CNavbar() {
     >
       <Container fluid>
         <Navbar.Brand
-          href="/home"
+          href="/customer/dashboard"
           className="brand fw-bold"
           style={navBrandStyle}
         >
@@ -76,26 +107,57 @@ function CNavbar() {
             >
               Contact
             </Nav.Link>
+            
+            {localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('userType') === 'CUSTOMER' && (
+              <Nav.Link
+                onClick={() => navigate("/customer/cart")}
+                style={navLinkStyle}
+              >
+                Cart
+              </Nav.Link>
+            )}
 
+            {localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('userType') === 'CUSTOMER' && (
+              <Nav.Link
+                onClick={() => navigate("/customer/myreviews/" + customerId)}
+                style={navLinkStyle}
+              >
+                My Reviews
+              </Nav.Link>
+            )}
+
+            {localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('userType') === 'CUSTOMER' &&  (
+              <Nav.Link
+                onClick={() => navigate("/customer/orders/" + customerId)}
+                style={navLinkStyle}
+              >
+                Orders
+              </Nav.Link>
+            )}
+
+            {localStorage.getItem('isLoggedIn') !== 'true' && (
             <Nav.Link
               onClick={() => navigate("/auth/Signup")}
               style={navLinkStyle}
             >
               Signup
             </Nav.Link>
-            <Nav.Link
-              onClick={() => navigate("/customer/cart")}
-              style={navLinkStyle}
-            >
-              Cart
-            </Nav.Link>
+            )}
+
+            {/* {localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('userType') === 'CUSTOMER' && (
             <Nav.Link
               onClick={() => navigate("/auth/logout")}
               style={navLinkStyle}
             >
               Logout
             </Nav.Link>
-
+            )} */}
+             <Nav.Link
+              onClick={() => navigate("/auth/logout")}
+              style={navLinkStyle}
+            >
+              logout
+            </Nav.Link>
             
           </Nav>
 

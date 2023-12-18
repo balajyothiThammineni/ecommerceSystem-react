@@ -1,100 +1,125 @@
+import React, { useState } from "react";
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { useSearchParams } from "react-router-dom";
-import CNavbar from "../customer/components/navbar";
-import SellerHome from "../seller/components/home";
-import ExecutiveDashboard from "../executive/dashboard";
+import MyNavbar from "../navbar";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 function Clogin() {
   const [param] = useSearchParams();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [msg, setMsg] = useState(param.get('msg'));
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState(param.get("msg"));
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const navigate = useNavigate();
 
   const doLogin = () => {
-    let token = window.btoa(username + ':' + password);
-    axios.post('http://localhost:8080/auth/login', {}, {
-      headers: {
-        'Authorization': 'Basic ' + token
-      }
-    })
+    let token = window.btoa(username + ":" + password);
+    axios
+      .post(
+        "http://localhost:8080/auth/login",
+        {},
+        {
+          headers: {
+            Authorization: "Basic " + token,
+          },
+        }
+      )
       .then(function (response) {
-        localStorage.setItem('username', username);
-        localStorage.setItem('token', token);
-        localStorage.setItem('id', response.data.id);
-        localStorage.setItem('isLoggedIn', true);
-        let role = response.data.role;
+        localStorage.setItem("username", username);
+        localStorage.setItem("token", token);
+        localStorage.setItem("id", response.data.id);
+        localStorage.setItem("userType", response.data.role);
 
+        // axios
+        //   .get(`http://localhost:8080/seller/findByUserId/${response.data.id}`)
+        //   .then((response) => {
+        //     localStorage.setItem("sid", response.data.sellerId);
+        //   })
+        //   .catch((error) => {
+        //     console.error("Error fetching seller:", error);
+        //   });
+
+        // localStorage.setItem("isLoggedIn", true);
+
+        let role = response.data.role;
         switch (role) {
-          case 'CUSTOMER':
-            navigate('/customer/dashboard');
+          case "CUSTOMER":
+            navigate("/customer/dashboard");
             break;
-          case 'SELLER':
-            navigate('/seller/Home'); // Corrected path
+          case "SELLER":
+            navigate("/seller/Home");
             break;
-          case 'EXECUTIVE':
-            navigate('/executive/Home'); // Corrected path
+          case "EXECUTIVE":
+            navigate("/executive/Home");
             break;
           default:
         }
       })
       .catch(function (error) {
-        setMsg('Invalid Credentials');
+        if (error.response && error.response.status === 401) {
+          setMsg("Invalid credentials. Please try again.");
+        } else {
+          setMsg("Invalid credentials");
+        }
       });
   };
 
-  return (
-    <div>
-      <CNavbar />
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-md-3"></div>
-          <div className="col-md-6">
-            <div className="card">
-              <div className="card-header" style={{ textAlign: "center" }}>
-                <h3>Login</h3>
+  return (
+    <div className="container-fluid" style={{ backgroundColor: "#f8f9fa", height: "100vh" }}>
+      <MyNavbar />
+
+      <div className="row d-flex justify-content-center align-items-center" style={{ height: "90vh" }}>
+        <div className="card col-md-4" style={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
+          <div className="card-body p-4">
+            <h4 className="card-title mb-4 text-center">Login</h4>
+            {msg && <div className="alert alert-danger mb-3 text-center">{msg}</div>}
+            <form>
+              <div className="mb-3">
+                <label htmlFor="username" className="form-label">
+                  Username:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username"
+                />
               </div>
-              <div className="card-body">
-                {msg !== '' ?
-                  <div className="alert alert-danger" role="alert">
-                    {msg}
-                  </div>
-                  : ''}
-                <div className="row " style={{ textAlign: "center" }}>
-                  <div className="col-md-6">
-                    <label>Enter Email/Username:</label>
-                  </div>
-                  <div className="col-md-6 mb-4">
-                    <input type="email" className="form-control"
-                      onChange={(e) => setUsername(e.target.value)} />
-                  </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">
+                  Password:
+                </label>
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-control"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
                 </div>
-                <div className="row" style={{ textAlign: "center" }}>
-                  <div className="col-md-6">
-                    <label>Enter Password:</label>
-                  </div>
-                  <div className="col-md-6">
-                    <input type="password" className="form-control"
-                      onChange={(e) => setPassword(e.target.value)} />
-                  </div>
-                </div>
               </div>
-              <div className="card-footer" style={{ textAlign: "center" }}>
-                <button className="btn btn-primary"
-                  onClick={() => doLogin()}>Login</button>
+              <div className="">
+                <button type="button" className="btn btn-primary btn-block" onClick={doLogin}>
+                  Login
+                </button>
               </div>
-            </div>
-            <div style={{ textAlign: "center" }} className="mt-4">
-              <span>Don't have an account
-                <button className="button_link"
-                  onClick={() => navigate('/auth/signup')}>Sign up</button>
-              </span>
-            </div>
+            </form>
           </div>
-          <div className="col-md-3"></div>
         </div>
       </div>
     </div>

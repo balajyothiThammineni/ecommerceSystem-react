@@ -3,58 +3,66 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import CNavbar from "./navbar";
 
-function Review() {
-  const { pid } = useParams();
+function MyReview() {
+  const { customerId } = useParams();
   const [reviewData, setReviewData] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching data for pid:", pid);
-        // const response = await axios.get(`http://localhost:8080/review/product/${pid}`);
-        // const productData = await axios.get(`http://localhost:8080/products/${pid}`);
-        // console.log("API Response:", response.data);
-        // setProduct(productData.data);
-        // console.log(product.name)
-        // setReviewData(response.data);
-        setIsDataLoaded(true); 
+        console.log("Fetching data for pid:", customerId);
+        const response = await axios.get(`http://localhost:8080/review/getall/${customerId}`);
+        console.log("API Response:", response.data);
 
-
-        // Fetch product details
-        const productResponse = await axios.get(`http://localhost:8080/products/${pid}`);
-        setProduct(productResponse.data);
-        // Fetch product reviews
-        const reviewsResponse = await axios.get(`http://localhost:8080/review/product/${pid}`);
-        setReviewData(reviewsResponse.data);
+        // Fetch product details for each review
+        const reviewsWithProductDetails = await Promise.all(
+          response.data.map(async (review) => {
+            const productDetails = await fetchProductDetails(review.product.productId);
+            return { ...review, productDetails };
+          })
+        );
+        setReviewData(reviewsWithProductDetails);
+        setIsDataLoaded(true);
       } catch (error) {
         console.error("Error fetching review data:", error);
       }
     };
 
     fetchData();
-  }, [pid]);
+  }, [customerId]);
+
+  const fetchProductDetails = async (productId) => {
+    try {
+      const productResponse = await axios.get(`http://localhost:8080/products/${productId}`);
+      return productResponse.data;
+    } catch (error) {
+      console.error(`Error fetching product details for product ID ${productId}:`, error);
+      return null;
+    }
+  };
 
   return (
     <div style={styles.holder}>
       <div style={styles.container}>
-        { product && (
-          <h3 style={styles.heading}>{product.name} Reviews</h3>
-        )}
-        {isDataLoaded && reviewData.length > 0 ? (
+        <h3 style={styles.heading}>Reviews given by you </h3>
+        {isDataLoaded &&
           reviewData.map((review, index) => (
             <div key={index} style={styles.reviewContainer}>
+              {review.productDetails && (
+                <p style={styles.detail}>Product: {review.productDetails.name}</p>
+              )}
               <p style={styles.detail}>Rating: {review.rating}</p>
               <p style={styles.detail}>Review Description: {review.reviewDescription}</p>
               <p style={styles.detail}>Date: {review.date}</p>
             </div>
-          ))
-        ) : isDataLoaded ? (
-          <p style={styles.loading}>No reviews available for this product.</p>
-        ) : (
+          ))}
+        {!isDataLoaded ? (
           <p style={styles.loading}>Loading review data...</p>
-        )}
+        ) : reviewData.length === 0 ? (
+          <p style={styles.loading}>You have not given any reviews so far.</p>
+        ) : null}
+        {/* Assuming CNavbar is a component you want to render at the end */}
         <CNavbar />
       </div>
     </div>
@@ -62,7 +70,7 @@ function Review() {
 }
 
 const styles = {
-  holder:{
+  holder: {
     marginTop: '100px'
   },
   container: {
@@ -95,4 +103,4 @@ const styles = {
   },
 };
 
-export default Review;
+export default MyReview;

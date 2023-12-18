@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { Table, Button, Row, Col, Card } from "react-bootstrap";
 import SNavbar from "./navbar";
 
 function MyProducts({ sid }) {
   const [param] = useSearchParams();
   const [products, setProducts] = useState([]);
-
+  const sellerId = localStorage.getItem("sid");
+  const navigate = useNavigate();
   useEffect(() => {
     fetchData();
   }, [sid]);
 
   const fetchData = () => {
     axios
-      .get(`http://localhost:8080/product/seller/${6}`)
+      .get(`http://localhost:8080/product/seller/${sellerId}`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -25,6 +26,7 @@ function MyProducts({ sid }) {
 
   const handleAddProduct = () => {
     console.log("Add product functionality");
+    navigate('/seller/addproduct')
   };
 
   const handleDeleteProduct = (productId) => {
@@ -32,7 +34,7 @@ function MyProducts({ sid }) {
 
     // Send a DELETE request to your backend API
     axios
-      .delete(`http://localhost:8080/product/delete/${productId}`)
+      .delete(`http://localhost:8080/product/delete/${productId}/${sellerId}`)
       .then((response) => {
         console.log("Delete response:", response);
         console.log('Product deleted successfully');
@@ -56,10 +58,10 @@ function MyProducts({ sid }) {
                 <tr>
                   <th>Sno</th>
                   <th>Name</th>
-                  <th>productDescription</th>
-                  <th>colour</th>
-                  <th>size</th>
-                  <th>stock</th>
+                  <th>Product Description</th>
+                  <th>Colour</th>
+                  <th>Size</th>
+                  <th>Stock</th>
                   <th>Action</th>
                 </tr>
               </thead>

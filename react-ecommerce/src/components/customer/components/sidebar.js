@@ -32,27 +32,31 @@ function Sidebar() {
    };
 
   return (
-    <div>
-      <Card className="categories-card" style={{ width: "80%", marginTop: "4cm" }}>
+    <div style={{ opacity: 0.8 }}>
+      {categories && categories.length > 0 && (
+      <Card className="categories-card" style={{ width: "80%", marginTop: "120px" }}>
         <ListGroup>
-          <CardHeader style={{ backgroundColor: "blue", color: "#fff" }}>Categories</CardHeader>
-          {categories.map((c, index) => (
-            <ListGroupItem
-              key={index}
-              style={{
-                border: "none",
-                backgroundColor: selectedCategory === c.categoryId ? "#007bff" : "",
-                cursor: "pointer",
-              }}
-              onClick={() => handleCategoryClick(c.categoryId)}>
-                
-                {c.categoryName}
-                {/* </Nav.Link> */}
+          <CardHeader style={{ backgroundColor: "blue", color: "#fff" }}>
+            Categories
+          </CardHeader>
+        {categories.map((c, index) => (
+          <ListGroupItem
+            key={index}
+            style={{
+              border: "none",
+              backgroundColor: selectedCategory === c.categoryId ? "#007bff" : "",
+              cursor: "pointer",
+            }}
+            onClick={() => handleCategoryClick(c.categoryId)}>
+              
+              {c.categoryName}
+              {/* </Nav.Link> */}
 
-            </ListGroupItem>
-          ))}
+          </ListGroupItem>
+        ))}
         </ListGroup>
       </Card>
+      )}
     </div>
   );
 }

@@ -30,7 +30,7 @@ function Sellerview() {
       .then(response => {
         console.log('Delete response:', response);
         console.log('Seller deleted successfully');
-        setSellers(prevSellers => prevSellers.filter(seller => seller.id !== sellerId));
+        setSellers(prevSellers => prevSellers.filter(seller => seller.sellerId !== sellerId));
       })
       .catch(error => console.error('Error deleting seller:', error));
   };
@@ -55,7 +55,7 @@ function Sellerview() {
               </thead>
               <tbody>
                 {sellers.map((seller, index) => (
-                  <tr key={seller.id}>
+                  <tr key={seller.sellerId}>
                     <td>{index + 1}</td>
                     <td>{seller.sellerName}</td>
                     <td>{seller.email}</td>
@@ -64,7 +64,7 @@ function Sellerview() {
                     {/* <td><button class="btn btn-warning" onClick={() => removeSeller(index)}>Remove</button></td> */}
 
                      <td>
-                      <Button variant="danger" onClick={() => handleDeleteClick(seller.id)}>Delete</Button>
+                      <Button variant="danger" onClick={() => handleDeleteClick(seller.sellerId)}>Delete</Button>
                     </td> 
                   </tr>
                 ))}

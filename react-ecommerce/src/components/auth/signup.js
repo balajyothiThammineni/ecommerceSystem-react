@@ -21,7 +21,18 @@ function SignUp() {
 
   const doSignUp = () => {
     // Validate required fields
-    if (!customerName || !customerNumber || !customerEmail || !hno || !street || !city || !pin || !state || !username || !password) {
+    if (
+      !customerName ||
+      !customerNumber ||
+      !customerEmail ||
+      !hno ||
+      !street ||
+      !city ||
+      !pin ||
+      !state ||
+      !username ||
+      !password
+    ) {
       setMsg("All fields are required");
       return;
     }
@@ -36,7 +47,9 @@ function SignUp() {
     // Validate password format (at least one uppercase, one lowercase, one digit, and minimum length)
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     if (!passwordRegex.test(password)) {
-      setMsg("Password must contain at least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long");
+      setMsg(
+        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long"
+      );
       return;
     }
 
@@ -72,7 +85,7 @@ function SignUp() {
   return (
     <div>
       <CNavbar />
-      <Container fluid className="mt-5">
+      <Container fluid className="mt-5" style={{ padding: "100px" }}>
         <div className="row">
           <div className="col-md-3"></div>
           <div className="col-md-6">
@@ -82,7 +95,10 @@ function SignUp() {
               </div>
               <div className="card-body">
                 {msg !== "" ? (
-                  <div className="alert alert-danger" role="alert">
+                  <div
+                    className="alert alert-success custom-success-alert"
+                    role="alert"
+                  >
                     {msg}
                   </div>
                 ) : (
@@ -158,20 +174,19 @@ function SignUp() {
                     </div>
                   </div>
                 </div>
-                <div className="row" style={{ textAlign: "center" }}>
-                  <div className="col-md-5">
+                <div className="row" style={{ textAlign: "left" }}>
+                  <div className="col-md-6">
                     <label>Enter Email/Username:</label>
                   </div>
                   <div className="col-md-6 mb-4">
                     <input
                       type="email"
                       className="form-control"
-                      style={{ textAlign: "center" }}
                       onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
-                  <div className="row" style={{ textAlign: "center" }}></div>
-                  <div className="col-md-5">
+                  <div className="row" style={{ textAlign: "left" }}></div>
+                  <div className="col-md-6">
                     <label>Enter Password:</label>
                   </div>
                   <div className="col-md-6">
@@ -185,7 +200,7 @@ function SignUp() {
               </div>
               <div className="card-footer" style={{ textAlign: "center" }}>
                 <button className="btn btn-primary" onClick={() => doSignUp()}>
-                  SignUp
+                  Register
                 </button>
               </div>
             </div>
@@ -193,7 +208,8 @@ function SignUp() {
               <span>
                 Have an Account?
                 <button
-                  className="button_link"
+                  className="btn btn-success button_link"
+                  style={{ margin: "10px" }}
                   onClick={() => navigate("/auth/login")}
                 >
                   Login

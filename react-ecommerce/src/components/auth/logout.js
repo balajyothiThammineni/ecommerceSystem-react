@@ -9,7 +9,10 @@ function Logout() {
 
   const handleLogout = () => {
     // Clear local storage ID
+    localStorage.setItem('isLoggedIn', false) 
     localStorage.removeItem('id');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('cart')
     setShowLogoutModal(true);
   };
 

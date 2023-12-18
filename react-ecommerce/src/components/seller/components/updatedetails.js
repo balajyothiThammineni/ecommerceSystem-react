@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import SNavbar from "./navbar"; // Assuming you have a navbar for sellers
 
-function UpdateDetails({ sellerId }) {
+function UpdateDetails() {
   const [sellerDetails, setSellerDetails] = useState({
     sellerName: "",
     email: "",
@@ -13,11 +13,11 @@ function UpdateDetails({ sellerId }) {
   });
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-
+  const sellerId = localStorage.getItem('sid');
   useEffect(() => {
     // Fetch the seller details from the server using the sellerId
     axios
-      .put(`http://localhost:8080/seller/update/${sellerId}`)
+      .get(`http://localhost:8080/seller/getone/${sellerId}`)
       .then((response) => {
         setSellerDetails(response.data);
       })
@@ -110,7 +110,7 @@ function UpdateDetails({ sellerId }) {
                       name="gstin"
                     />
                   </div>
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn btn-primary" style={{ textAlign: "center" }} >
                     Update Details
                   </button>
                 </form>

@@ -5,7 +5,6 @@ import axios from "axios";
 import SNavbar from "../seller/components/navbar";
 
 function Register() {
-
   const [sellerName, setSellerName] = useState("");
   const [sellerEmail, setSellerEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +21,7 @@ function Register() {
   const navigate = useNavigate();
 
   const doSignUp = () => {
+    // Check if any field is empty
     if (
       !sellerName ||
       !sellerEmail ||
@@ -39,6 +39,14 @@ function Register() {
       return;
     }
 
+    // GSTIN validation
+    const gstinRegex = /^[A-Z\d]{15}$/;
+    if (!gstinRegex.test(gstin)) {
+      setMsg("Invalid GSTIN. It should be 15 characters long and contain only capital letters and numbers.");
+      return;
+    }
+
+    // Create sellerObj
     let sellerObj = {
       sellerName: sellerName,
       email: sellerEmail,
@@ -57,8 +65,6 @@ function Register() {
         state: state,
       },
     };
-
-    console.log(JSON.stringify(sellerObj));
 
     axios
       .post("http://localhost:8080/seller/signup", sellerObj)
